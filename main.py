@@ -14,13 +14,14 @@ def main():
     queries = [
         "search engine",
         "project",
-        "systems",
-        "python"
+        "systems"
     ]
 
     for query in queries:
         results = search_engine.search(query)
-        print(f"Query: '{query}' -> Results: {results}")
+        print(f"\nQuery: '{query}'")
+        for doc_id, score in results:
+            print(f"Doc {doc_id} -> Score: {score:.4f}")
 
 
 if __name__ == "__main__":

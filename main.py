@@ -1,7 +1,6 @@
 from engine.index import InvertedIndex
 from engine.search import SearchEngine
 
-
 def main():
     index = InvertedIndex()
 
@@ -22,7 +21,6 @@ def main():
         print(f"\nQuery: '{query}'")
         for doc_id, score in results:
             print(f"Doc {doc_id} -> Score: {score:.4f}")
-
 
 if __name__ == "__main__":
     main()

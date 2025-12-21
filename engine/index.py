@@ -7,7 +7,7 @@ class InvertedIndex:
         self.index = defaultdict(dict)
         self.document_count = 0
         self.doc_lengths = {}
-
+        
     def add_document(self, doc_id: int, text: str):
         tokens = tokenize(text)
         term_frequencies = {}

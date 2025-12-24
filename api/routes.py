@@ -23,3 +23,14 @@ def search(query: SearchQuery):
         for doc_id, score in results
     ]
     return SearchResponse(results=formatted)
+
+@router.post("/save")
+def save_index():
+    index.save("index.json")
+    return {"status": "index saved"}
+
+
+@router.post("/load")
+def load_index():
+    index.load("index.json")
+    return {"status": "index loaded"}

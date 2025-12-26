@@ -9,6 +9,8 @@ class BM25Scorer:
         self.b = b
 
     def avg_doc_length(self) -> float:
+        if self.index.document_count == 0:
+            return 0.0
         total_length = sum(self.index.doc_lengths.values())
         return total_length / self.index.document_count
 
@@ -19,6 +21,8 @@ class BM25Scorer:
         return math.log((self.index.document_count - df + 0.5) / (df + 0.5) + 1)
 
     def score(self, query_terms: list[str]) -> dict[int, float]:
+        if self.index.document_count == 0:
+            return {}
         scores = {}
         avg_dl = self.avg_doc_length()
 

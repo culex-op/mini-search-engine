@@ -51,4 +51,32 @@ async function saveIndex() {
 async function loadIndex() {
     await fetch("/load", { method: "POST" });
     alert("Index loaded");
+    viewDocuments();   // 👈 THIS IS THE KEY
+}
+
+async function viewDocuments() {
+    const resultsDiv = document.getElementById("results");
+    resultsDiv.innerHTML = "Loading documents...";
+
+    const response = await fetch("/documents");
+    const docs = await response.json();
+
+    resultsDiv.innerHTML = "";
+
+    const entries = Object.entries(docs);
+
+    if (entries.length === 0) {
+        resultsDiv.innerHTML = "<p>No documents indexed.</p>";
+        return;
+    }
+
+    entries.forEach(([docId, text]) => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+            <p><strong>Document ${docId}</strong></p>
+            <p>${text}</p>
+            <hr>
+        `;
+        resultsDiv.appendChild(div);
+    });
 }

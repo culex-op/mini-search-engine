@@ -15,18 +15,20 @@ def add_document(doc: DocumentIn):
     return {"status": "document added"}
 
 
-@router.post("/search", response_model=SearchResponse)
+@router.post("/search")
 def search(query: SearchQuery):
     results = search_engine.search(query.query, query.top_k)
-    formatted = [
-        {
+
+    formatted = []
+    for doc_id, score in results:
+        formatted.append({
             "doc_id": doc_id,
             "score": score,
             "text": index.documents.get(doc_id, "")
-        }
-        for doc_id, score in results
-    ]
+        })
+
     return {"results": formatted}
+
 
 
 @router.post("/save")

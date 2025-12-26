@@ -29,11 +29,12 @@ class BM25Scorer:
             idf_value = self.idf(term)
             postings = self.index.index[term]
 
-            for doc_id, tf in postings.items():
+            for doc_id, positions in postings.items():
+                tf = len(positions)
                 dl = self.index.doc_lengths[doc_id]
                 numerator = tf * (self.k1 + 1)
                 denominator = tf + self.k1 * (1 - self.b + self.b * (dl / avg_dl))
                 score = idf_value * (numerator / denominator)
-                scores[doc_id] = scores.get(doc_id, 0.0) + score
+            scores[doc_id] = scores.get(doc_id, 0.0) + score
 
         return scores

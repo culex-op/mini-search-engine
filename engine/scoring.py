@@ -17,7 +17,8 @@ class TFIDFScorer:
                      idf_value = self.idf(term)
                      postings = self.index.index[term]
 
-                     for doc_id , tf in postings.items():
-                           scores[doc_id] = scores.get(doc_id , 0.0) + tf * idf_value
+                     for doc_id, positions in postings.items():
+                            tf = len(positions)
+                            scores[doc_id] = scores.get(doc_id, 0.0) + tf * idf_value
 
               return scores

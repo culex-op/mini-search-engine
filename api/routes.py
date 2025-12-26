@@ -19,10 +19,15 @@ def add_document(doc: DocumentIn):
 def search(query: SearchQuery):
     results = search_engine.search(query.query, query.top_k)
     formatted = [
-        SearchResult(doc_id=doc_id, score=score)
+        {
+            "doc_id": doc_id,
+            "score": score,
+            "text": index.documents.get(doc_id, "")
+        }
         for doc_id, score in results
     ]
-    return SearchResponse(results=formatted)
+    return {"results": formatted}
+
 
 @router.post("/save")
 def save_index():
@@ -34,3 +39,17 @@ def save_index():
 def load_index():
     index.load("index.json")
     return {"status": "index loaded"}
+
+@router.get("/documents")
+def list_documents():
+    return index.documents
+
+
+@router.get("/documents/{doc_id}")
+def get_document(doc_id: int):
+    if doc_id not in index.documents:
+        return {"error": "document not found"}
+    return {
+        "doc_id": doc_id,
+        "text": index.documents[doc_id]
+    }

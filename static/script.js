@@ -51,7 +51,7 @@ async function saveIndex() {
 async function loadIndex() {
     await fetch("/load", { method: "POST" });
     alert("Index loaded");
-    viewDocuments();   // 👈 THIS IS THE KEY
+    viewDocuments();   
 }
 
 async function viewDocuments() {

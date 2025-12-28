@@ -1,3 +1,29 @@
+async function chat() {
+    const q = document.getElementById("chatQuery").value.trim();
+    const ansDiv = document.getElementById("chatAnswer");
+
+    ansDiv.innerHTML = "Thinking...";
+
+    const res = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            question: q,
+            top_k: 3
+        })
+    });
+
+    const text = await res.text();   // 👈 IMPORTANT
+    console.log("RAW RESPONSE:", text);
+
+    try {
+        const data = JSON.parse(text);
+        ansDiv.innerHTML = data.answer ?? text;
+    } catch {
+        ansDiv.innerHTML = text;
+    }
+}
+
 async function search() {
     const query = document.getElementById("query").value;
     const resultsDiv = document.getElementById("results");
@@ -80,3 +106,5 @@ async function viewDocuments() {
         resultsDiv.appendChild(div);
     });
 }
+
+

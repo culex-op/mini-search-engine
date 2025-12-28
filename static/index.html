@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Mini Search Engine</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="container">
         <h1 class="logo">MiniSearch</h1>
-
+        
         <!-- Search -->
         <input type="text" id="query" placeholder="Search..." />
         <button onclick="search()">Search</button>
@@ -26,11 +26,17 @@
             <textarea id="docText" placeholder="Document text"></textarea>
             <button onclick="addDocument()">Add</button>
         </div>
-
+        <div class="chat">
+            <h3>Ask AI</h3>
+            <input id="chatQuery" placeholder="Ask about the documents..." />
+            <button onclick="chat()">Ask</button>
+            <div id="chatAnswer"></div>
+        </div>
         <div id="results"></div>
+
     </div>
 
 
-    <script src="script.js"></script>
+    <script src="/static/script.js"></script>
 </body>
 </html>

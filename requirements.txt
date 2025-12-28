@@ -7,4 +7,4 @@ databases
 asyncpg  
 pymongo
 motor
-                          
+openai

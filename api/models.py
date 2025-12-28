@@ -1,6 +1,9 @@
 from pydantic import BaseModel
 from typing import List
 
+class ChatQuery(BaseModel):
+    query: str
+    top_k: int = 3
 
 class DocumentIn(BaseModel):
     doc_id: int
